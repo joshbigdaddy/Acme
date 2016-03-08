@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2013 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="order/list" extends="master.page">	
+		<put-attribute name="title" value="Pedidos" />
+		<put-attribute name="body" value="/views/order/orders.jsp" />
+	</definition>
+	<definition name="order/create" extends="master.page">	
+		<put-attribute name="title" value="Crear pedido" />
+		<put-attribute name="body" value="/views/order/create.jsp" />
+	</definition>
+	<definition name="order/assign" extends="master.page">
+  		<put-attribute name="title" value="Asignar a empleado un pedido" /> 
+ 		 <put-attribute name="body" value="/views/order/assign.jsp" /> 
+  	</definition>
+	
+	<definition name="order/deliver" extends="master.page">
+  		<put-attribute name="title" value="Marcar un pedido como enviado" /> 
+  		<put-attribute name="body" value="/views/order/deliver.jsp" /> 
+ 	 </definition>
+ 	 <definition name="order/cancel" extends="master.page">
+  <put-attribute name="title" value="Cancelar un pedido" /> 
+  <put-attribute name="body" value="/views/order/cancel.jsp" /> 
+  </definition>
+  
+  <definition name="order/ordersConsumer" extends="master.page">
+  <put-attribute name="title" value="Lista de pedidos" /> 
+  <put-attribute name="body" value="/views/order/ordersConsumer.jsp" /> 
+  </definition>
+  <definition name="order/listItems" extends="master.page">
+  <put-attribute name="title" value="Lista de objetos" /> 
+  <put-attribute name="body" value="/views/order/listItems.jsp" /> 
+  </definition>
+
+	
+</tiles-definitions>

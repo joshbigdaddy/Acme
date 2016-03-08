@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * security.xml
+ *
+ * Copyright (C) 2014 Universidad de Sevilla
+ * Author (A) 2012 Rafael Corchuelo (corchu@us.es)
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"	
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    ">
+
+	<!-- Security infrastructure -->
+
+	<bean id="loginService" class="security.LoginService" />
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<!-- Access control -->
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/" access="permitAll" /> 
+
+		<security:intercept-url pattern="/favicon.ico" access="permitAll" /> 
+		<security:intercept-url pattern="/images/**" access="permitAll" /> 
+		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
+		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
+
+		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
+
+		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
+		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
+
+		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
+		<security:intercept-url pattern="/order/clerk/seeItems.do" access="hasAnyRole('CLERK', 'ADMIN')" />
+		
+
+		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/clerk/administrator/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/stores/clerk/withDraw.do" access="hasRole('CLERK')" /> 
+		
+		
+		<security:intercept-url pattern="/stores/administrator/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/stores/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/warehouse/showItems.do" access="hasAnyRole('CLERK', 'ADMIN')" /> 
+		<security:intercept-url pattern="/warehouse/list.do" access="hasAnyRole('CLERK', 'ADMIN')" /> 
+		<security:intercept-url pattern="/warehouse/administrator/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/warehouse/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/warehouse/administrator/listItems.do" access="hasRole( 'ADMIN')" /> 
+		<security:intercept-url pattern="/order/consumer/list.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/order/consumer/cancel.do" access="hasRole('CONSUMER')" />
+		
+		<security:intercept-url pattern="/category/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/category/list.do" access="hasRole('ADMIN')" /> 
+		
+		<security:intercept-url pattern="/plaba/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/plaba/administrator/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/plaba/administrator/create.do" access="hasRole('ADMIN')" /> 
+	    <security:intercept-url pattern="/plaba/consumer/list.do" access="hasRole('CONSUMER')" /> 
+		
+		
+		<security:intercept-url pattern="/order/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/order/list.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/order/administrator/list.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/userAccount/actor/create.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/consumer/administrator/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/order/administrator/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/tax/administrator/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/item/administrator/catalogo.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/tax/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/tax/administrator/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/shoppingcart/consumer/shoppingcart.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/shoppingcartitem/consumer/editItem.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/shoppingcart/consumer/addItem.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/shoppingcartcomment/consumer/editComment.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/shoppingcartcomment/consumer/create.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/order/consumer/create.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/item/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/item/administrator/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/order/clerk/list.do" access="hasAnyRole('CLERK')" /> 
+		<security:intercept-url pattern="/order/clerk/assign.do" access="hasRole('CLERK')" /> 
+		<security:intercept-url pattern="/order/consumer/plaba.do" access="hasRole('CONSUMER')" /> 
+		<security:intercept-url pattern="/order/clerk/deliver.do" access="hasRole('CLERK')" /> 
+		<security:intercept-url pattern="/item/administrator/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/item/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/item/search.do" access="permitAll" /> 
+		<security:intercept-url pattern="/category/administrator/create.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/category/administrator/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/category/administrator/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/administrator/dashboard.do" access="hasRole('ADMIN')" /> 
+		
+		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
+
+		<security:form-login 
+			login-page="/security/login.do"
+			password-parameter="password" 
+			username-parameter="username"
+			authentication-failure-url="/security/loginFailure.do" />
+
+		<security:logout 
+			logout-success-url="/" 
+			invalidate-session="true" />
+	</security:http>
+
+</beans>
